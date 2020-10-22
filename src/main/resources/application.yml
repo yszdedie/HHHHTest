@@ -1,0 +1,37 @@
+spring:
+  #配置数据源
+  datasource:
+    username: root
+    password: 123
+    url: jdbc:mysql://localhost:3306/day23?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&allowMultiQueries=true
+  redis:
+    password: 123456
+    database: 0
+    timeout: 10s  # 数据库连接超时时间，2.x 中该参数的类型为Duration，这里在配置的时候需要指明单位
+    # 连接池配置，2.x中直接使用jedis或者lettuce配置连接池
+    jedis:      # 也可以使用[lettuce]
+      pool:
+        max-idle: 50        # 最大空闲连接数
+        min-idle: 10        # 最小空闲连接数
+        max-wait: -1s        # 等待可用连接的最大时间，负数为不限制
+        max-active: -1        # 最大活跃连接数，负数为不限制
+    cluster:
+      nodes:
+        - 192.168.115.128:6001
+        - 192.168.115.128:6002
+        - 192.168.115.128:6003
+        - 192.168.115.128:6004
+        - 192.168.115.128:6005
+        - 192.168.115.128:6006
+#mybatis的配置
+mybatis:
+  mapperLocations: classpath:mapper/*.xml
+  type-aliases-package: com.cssl.springboot.pojo
+  configuration:
+    auto-mapping-behavior: full
+
+
+  #配置SpringBoot内部有关Tomcat有关的配置
+server:
+  tomcat:
+    uri-encoding: UTF-8
